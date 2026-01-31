@@ -9,6 +9,7 @@
 
 <body>
   <div class="container">
+
     <div class="nav">
       <div class="brand">✈️ Desde 0 a ATPL</div>
       <div class="links">
@@ -19,6 +20,7 @@
     </div>
 
     <div class="grid">
+
       <div class="card half">
         <h3>Hora UTC</h3>
         <div class="value" id="utcClock">--:--:--Z</div>
@@ -32,14 +34,35 @@
       </div>
 
       <div class="card">
-        <h3>Zona de recursos (aquí meteremos NOTAMs y METAR luego)</h3>
+        <h3>Accesos rápidos</h3>
         <div class="small">
-          Esto es la base. Luego lo convertimos en una herramienta real para pilotos.
+          Recursos útiles para pilotos.
+        </div>
+
+        <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
+
+          <a href="https://www.enaire.es/servicios/ais-aip/ais" target="_blank"
+             style="text-decoration:none;color:white;border:1px solid rgba(255,255,255,0.18);padding:10px 12px;border-radius:12px;background:rgba(2,6,23,0.55);">
+            NOTAM / AIS (ENAIRE)
+          </a>
+
+          <a href="https://www.aemet.es/es/eltiempo/prediccion/municipios" target="_blank"
+             style="text-decoration:none;color:white;border:1px solid rgba(255,255,255,0.18);padding:10px 12px;border-radius:12px;background:rgba(2,6,23,0.55);">
+            AEMET (predicción)
+          </a>
+
+          <a href="https://www.windy.com/" target="_blank"
+             style="text-decoration:none;color:white;border:1px solid rgba(255,255,255,0.18);padding:10px 12px;border-radius:12px;background:rgba(2,6,23,0.55);">
+            Windy (visual)
+          </a>
+
         </div>
       </div>
+
     </div>
 
     <div class="footer">© 2026 · Desde 0 a ATPL</div>
+
   </div>
 
   <script src="app.js"></script>
