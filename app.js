@@ -1,5 +1,6 @@
 function pad2(n){ return String(n).padStart(2,'0'); }
 
+/* ---------------- UTC CLOCK ---------------- */
 function setUTCClock(){
   const el = document.getElementById('utcClock');
   if(!el) return;
@@ -10,10 +11,10 @@ function setUTCClock(){
   const ss = pad2(now.getUTCSeconds());
   el.textContent = `${hh}:${mm}:${ss}Z`;
 }
-
 setInterval(setUTCClock, 250);
 setUTCClock();
 
+/* ---------------- TEMP (Open-Meteo) ---------------- */
 async function fetchTemp(lat, lon){
   const el = document.getElementById('tempNow');
   const meta = document.getElementById('tempMeta');
@@ -62,5 +63,59 @@ function initTemp(){
     { enableHighAccuracy:false, timeout:8000, maximumAge: 600000 }
   );
 }
-
 initTemp();
+
+/* ---------------- AIRPORT SELECT (localStorage) ---------------- */
+function getAirport(){
+  return localStorage.getItem('apt') || 'LERS';
+}
+
+function paintAirport(){
+  const aptEl = document.getElementById('aptSel');
+  if(aptEl) aptEl.textContent = getAirport();
+}
+
+/* Te la dejo global para que el botón onclick la vea */
+window.setAirport = function(icao){
+  localStorage.setItem('apt', icao);
+  paintAirport();
+  loadMetar();
+};
+
+/* ---------------- METAR (AviationWeather.gov) ----------------
+   Nota: si tu navegador bloquea la llamada por CORS, te lo dirá.
+*/
+async function loadMetar(){
+  const apt = getAirport();
+  const rawEl = document.getElementById('metarRaw');
+  const metaEl = document.getElementById('metarMeta');
+  if(!rawEl || !metaEl) return;
+
+  rawEl.textContent = `Cargando METAR de ${apt}…`;
+  metaEl.textContent = `—`;
+
+  try{
+    const url = `https://aviationweather.gov/api/data/metar?ids=${encodeURIComponent(apt)}&format=json`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    // Normalmente viene como array
+    const item = Array.isArray(data) ? data[0] : data;
+    const raw = item?.rawOb || item?.raw || item?.metar || null;
+
+    if(raw){
+      rawEl.textContent = raw;
+      metaEl.textContent = `Fuente: AviationWeather.gov · ICAO: ${apt}`;
+    } else {
+      rawEl.textContent = `No se encontró METAR para ${apt}.`;
+      metaEl.textContent = `Prueba con otro aeropuerto o revisamos el endpoint.`;
+    }
+  } catch(err){
+    rawEl.textContent = `No pude cargar el METAR (posible bloqueo del navegador por CORS).`;
+    metaEl.textContent = `Solución si pasa: usamos un proxy/otra fuente o lo abrimos como enlace directo.`;
+  }
+}
+
+paintAirport();
+loadMetar();
+
