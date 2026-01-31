@@ -24,15 +24,15 @@
       <!-- Aeropuerto base -->
       <div class="card">
         <h3>Aeropuerto base</h3>
-        <div class="small">Selecciona tu aeropuerto habitual. Lo usaremos luego para METAR y NOTAM.</div>
+        <div class="small">Elige el aeropuerto y te cargamos su METAR automáticamente.</div>
 
         <div style="margin-top:10px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-          <button onclick="localStorage.setItem('apt','LEBL'); location.reload();"
+          <button onclick="setAirport('LEBL')"
             style="padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.18);background:rgba(2,6,23,0.55);color:white;cursor:pointer;">
             LEBL
           </button>
 
-          <button onclick="localStorage.setItem('apt','LERS'); location.reload();"
+          <button onclick="setAirport('LERS')"
             style="padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.18);background:rgba(2,6,23,0.55);color:white;cursor:pointer;">
             LERS
           </button>
@@ -57,12 +57,23 @@
         <div class="small" id="tempMeta">Cargando…</div>
       </div>
 
+      <!-- METAR -->
+      <div class="card">
+        <h3>METAR</h3>
+        <div class="small">Se actualiza al cambiar el aeropuerto. (Si falla, suele ser por CORS del navegador.)</div>
+
+        <div style="margin-top:12px; border:1px solid rgba(255,255,255,0.12); background:rgba(2,6,23,0.55); padding:12px; border-radius:14px; overflow:auto;">
+          <pre id="metarRaw" style="margin:0; white-space:pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;">Cargando METAR…</pre>
+        </div>
+
+        <div class="small" id="metarMeta" style="margin-top:10px; opacity:0.85;">—</div>
+      </div>
+
       <!-- Accesos rápidos -->
       <div class="card">
         <h3>Accesos rápidos</h3>
 
         <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
-
           <a href="https://www.enaire.es/servicios/ais-aip/ais" target="_blank"
              style="text-decoration:none;color:white;border:1px solid rgba(255,255,255,0.18);padding:10px 12px;border-radius:12px;background:rgba(2,6,23,0.55);">
             NOTAM / AIS (ENAIRE)
@@ -77,26 +88,16 @@
              style="text-decoration:none;color:white;border:1px solid rgba(255,255,255,0.18);padding:10px 12px;border-radius:12px;background:rgba(2,6,23,0.55);">
             Windy (visual)
           </a>
-
         </div>
       </div>
 
     </div>
 
     <div class="footer">© 2026 · Desde 0 a ATPL</div>
-
   </div>
 
   <script src="app.js"></script>
-
-  <script>
-    const aptEl = document.getElementById('aptSel');
-    if(aptEl){
-      const apt = localStorage.getItem('apt') || 'LERS';
-      aptEl.textContent = apt;
-    }
-  </script>
-
 </body>
 </html>
+
 
