@@ -21,23 +21,45 @@
 
     <div class="grid">
 
+      <!-- Aeropuerto base -->
+      <div class="card">
+        <h3>Aeropuerto base</h3>
+        <div class="small">Selecciona tu aeropuerto habitual. Lo usaremos luego para METAR y NOTAM.</div>
+
+        <div style="margin-top:10px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+          <button onclick="localStorage.setItem('apt','LEBL'); location.reload();"
+            style="padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.18);background:rgba(2,6,23,0.55);color:white;cursor:pointer;">
+            LEBL
+          </button>
+
+          <button onclick="localStorage.setItem('apt','LERS'); location.reload();"
+            style="padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.18);background:rgba(2,6,23,0.55);color:white;cursor:pointer;">
+            LERS
+          </button>
+        </div>
+
+        <div class="small" style="margin-top:10px;">
+          Seleccionado: <b id="aptSel">—</b>
+        </div>
+      </div>
+
+      <!-- Hora UTC -->
       <div class="card half">
         <h3>Hora UTC</h3>
         <div class="value" id="utcClock">--:--:--Z</div>
         <div class="small">Útil para METAR, TAF y briefings.</div>
       </div>
 
+      <!-- Temperatura -->
       <div class="card half">
         <h3>Temperatura local</h3>
         <div class="value" id="tempNow">—</div>
         <div class="small" id="tempMeta">Cargando…</div>
       </div>
 
+      <!-- Accesos rápidos -->
       <div class="card">
         <h3>Accesos rápidos</h3>
-        <div class="small">
-          Recursos útiles para pilotos.
-        </div>
 
         <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
 
@@ -66,5 +88,15 @@
   </div>
 
   <script src="app.js"></script>
+
+  <script>
+    const aptEl = document.getElementById('aptSel');
+    if(aptEl){
+      const apt = localStorage.getItem('apt') || 'LERS';
+      aptEl.textContent = apt;
+    }
+  </script>
+
 </body>
 </html>
+
