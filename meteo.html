@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meteo · Desde 0 a ATPL</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="brand">✈️ Desde 0 a ATPL</div>
+      <div class="links">
+        <a href="index.html">Inicio</a>
+        <a href="sobre.html">Sobre nosotros</a>
+        <a href="meteo.html">Meteo</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card half">
+        <h3>Hora UTC</h3>
+        <div class="value" id="utcClock">--:--:--Z</div>
+        <div class="small">Útil para METAR, TAF y briefings.</div>
+      </div>
+
+      <div class="card half">
+        <h3>Temperatura local</h3>
+        <div class="value" id="tempNow">—</div>
+        <div class="small" id="tempMeta">Cargando…</div>
+      </div>
+
+      <div class="card">
+        <h3>Zona de recursos (aquí meteremos NOTAMs y METAR luego)</h3>
+        <div class="small">
+          Esto es la base. Luego lo convertimos en una herramienta real para pilotos.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">© 2026 · Desde 0 a ATPL</div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
